@@ -1,0 +1,34 @@
+int valve=0;
+int buzzer=4;
+int moisture_sensor=3;
+int upper_bound_reference=2;
+int state=0;
+void setup(){
+  pinMode(valve, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(moisture_sensor, INPUT);
+  pinMode(upper_bound_reference, INPUT);
+  }
+void loop(){
+  int reference_value=analogRead(upper_bound_reference);
+  int upper_bound=map(reference_value, 0,1024,400, 900);
+  int result=analogRead(moisture_sensor);
+  if (result>upper_bound){
+      digitalWrite(valve, 1);
+      digitalWrite(buzzer,1);
+
+      while(result>300) {
+      soundBuzzer();
+      result=analogRead(moisture_sensor);
+      }
+      digitalWrite(valve, 0);
+      digitalWrite(buzzer, 0);
+    }
+ }
+void soundBuzzer()
+{
+  state=1-state;
+  digitalWrite(buzzer, state);
+  delay(1000);
+  }
+  

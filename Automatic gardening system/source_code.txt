@@ -1,0 +1,26 @@
+int valve=0;
+int buzzer=1;
+int moisture_sensor=2;
+
+int state=0;
+void setup(){
+  pinMode(valve, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(moisture_sensor, INPUT);
+  }
+void loop(){
+  int result=analogRead(moisture_sensor);
+  if (result>1000){
+      digitalWrite(valve, 1);
+      while(analogRead(moisture_sensor>200)) soundBuzzer();
+      digitalWrite(valve, 0);
+      digitalWrite(buzzer, 0);
+    }
+ }
+void soundBuzzer()
+{
+  state=1-state;
+  digitalWrite(buzzer, state);
+  delay(1000);
+  }
+  

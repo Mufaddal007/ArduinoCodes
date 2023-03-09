@@ -1,0 +1,21 @@
+int sensor=A0;
+int led=13;
+void setup() {
+  pinMode(sensor, INPUT);
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int result=analogRead(sensor);
+  Serial.println(result);
+  delay(1000);
+  if(result>1000)
+  {
+    digitalWrite(led, 1);
+    while(result>300) {result=analogRead(sensor); Serial.println(result); delay(1000);}
+    digitalWrite(led, 0);
+     
+    }
+
+}
